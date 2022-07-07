@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <string.h>
 
 typedef struct {
 	char name[20]; // 품목명은 20자 이하
@@ -8,8 +8,16 @@ typedef struct {
 }
 product;
 
+int seoson(int qty, char size[]);
+int juice(int qty, char size[]);
+int coffee(int qty, char size[]);
+int yogult(int qty, char size[]);
+int ade(int qty, char size[]);
+
+
 int main(void) {
 	int menu, idx = 0;
+	int sum = 0; // 총 금액
 	product prd[10] = { 0 }; // 품목은 최대 10개의 종류까지 선택 가능
 
 	printf("JUICY KIOSK");
@@ -31,6 +39,9 @@ int main(void) {
 		scanf("%d", &prd[idx].qty);
 		printf("사이즈를 입력하세요(M) : ");
 		scanf("%s", &prd[idx].size);
+
+		sum += seoson(prd[idx].qty, prd[idx].size);
+
 		idx++;
 	}
 	else if (menu == 2) {
@@ -44,6 +55,9 @@ int main(void) {
 		scanf("%d", &prd[idx].qty);
 		printf("사이즈를 입력하세요(M / XL) : ");
 		scanf("%s", &prd[idx].size);
+
+		sum += juice(prd[idx].qty, prd[idx].size);
+
 		idx++;
 	}
 	else if (menu == 3) {
@@ -57,6 +71,9 @@ int main(void) {
 		scanf("%d", &prd[idx].qty);
 		printf("사이즈를 입력하세요(M / XL) : ");
 		scanf("%s", &prd[idx].size);
+
+		sum += coffee(prd[idx].qty, prd[idx].size);
+
 		idx++;
 	}
 	else if (menu == 4) {
@@ -70,6 +87,9 @@ int main(void) {
 		scanf("%d", &prd[idx].qty);
 		printf("사이즈를 입력하세요(M / XL) : ");
 		scanf("%s", &prd[idx].size);
+
+		sum += yogult(prd[idx].qty, prd[idx].size);
+
 		idx++;
 	}
 	else if (menu == 5) {
@@ -83,6 +103,9 @@ int main(void) {
 		scanf("%d", &prd[idx].qty);
 		printf("사이즈를 입력하세요(M) : ");
 		scanf("%s", &prd[idx].size);
+
+		sum += ade(prd[idx].qty, prd[idx].size);
+
 		idx++;
 	}
 	else {
@@ -94,7 +117,44 @@ int main(void) {
 	for (int i = 0; i < idx; i++) {
 		printf("%s %d %s", prd[i].name, prd[i].qty, prd[i].size);
 	}
+	printf("\n\n총 금액 : %d", sum);
 
 	return 0; 
 }
+
+int seoson(int qty, char size[]) {
+	if (strcmp(size, "M") == 0) {
+		return 3500 * qty;
+	}
+}
+int juice(int qty, char size[]) {
+	if (strcmp(size, "M") == 0) {
+		return 1500 * qty;
+	}
+	if (strcmp(size, "XL") == 0) {
+		return 2800 * qty;
+	}
+}
+int coffee(int qty, char size[]) {
+	if (strcmp(size, "M") == 0) {
+		return 2000 * qty;
+	}
+	if (strcmp(size, "XL") == 0) {
+		return 3500 * qty;
+	}
+}
+int yogult(int qty, char size[]) {
+	if (strcmp(size, "M") == 0) {
+		return 2000 * qty;
+	}
+	if (strcmp(size, "XL") == 0) {
+		return 3800 * qty;
+	}
+}
+int ade(int qty, char size[]) {
+	if (strcmp(size, "M") == 0) {
+		return 3800 * qty;
+	}
+}
+
 // https://dailylifestory.tistory.com/147
