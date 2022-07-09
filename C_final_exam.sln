@@ -1,31 +1,174 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.2.32616.157
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "C_final_exam", "C_final_exam\C_final_exam.vcxproj", "{1DF3AA9E-2E5A-43E0-8822-0121A6FBAFDE}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1DF3AA9E-2E5A-43E0-8822-0121A6FBAFDE}.Debug|x64.ActiveCfg = Debug|x64
-		{1DF3AA9E-2E5A-43E0-8822-0121A6FBAFDE}.Debug|x64.Build.0 = Debug|x64
-		{1DF3AA9E-2E5A-43E0-8822-0121A6FBAFDE}.Debug|x86.ActiveCfg = Debug|Win32
-		{1DF3AA9E-2E5A-43E0-8822-0121A6FBAFDE}.Debug|x86.Build.0 = Debug|Win32
-		{1DF3AA9E-2E5A-43E0-8822-0121A6FBAFDE}.Release|x64.ActiveCfg = Release|x64
-		{1DF3AA9E-2E5A-43E0-8822-0121A6FBAFDE}.Release|x64.Build.0 = Release|x64
-		{1DF3AA9E-2E5A-43E0-8822-0121A6FBAFDE}.Release|x86.ActiveCfg = Release|Win32
-		{1DF3AA9E-2E5A-43E0-8822-0121A6FBAFDE}.Release|x86.Build.0 = Release|Win32
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5E972175-5DE3-438A-BA6F-FFFFD3A35C98}
-	EndGlobalSection
-EndGlobal
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+typedef struct {
+	char name[20]; // 품목명은 20자 이하
+	int qty;
+	char size[2];
+}
+product;
+int seoson(int qty, char size[]);
+int juice(int qty, char size[]);
+int coffee(int qty, char size[]);
+int yogult(int qty, char size[]);
+int ade(int qty, char size[]);
+int main(void) {
+	int menu, idx = 0; //메뉴
+	int sum = 0; // 총 금액
+	product prd[10] = { 0 }; // 품목은 최대 10개의 종류까지 선택 가능
+	char input; //추가 주문 응답
+	char answer; //주문 확인 응답
+	int total = 0;
+	char choose; //멤버십 할인 선택 응답
+	do {
+			printf("*********JUICY KIOSK******");
+		do {
+			printf("\n========= MENU =========\n");
+			printf("1. SEOSON\n2. JUICE\n3. COFFEE\n4. YOGULT\n5. ADE\n=========================\n");
+			printf("보고싶은 메뉴를 선택하세요 : ");
+			scanf_s(" %d", &menu);
+			if (menu == 1) {
+				printf("\n\n--------[SEOSON]--------\n");
+				printf("1) 수박살사믹스\n2) 수박살사큐브\n3) 생딸라떼\n4) 봄청블라썸\n\n");
+				printf("\nM : 3,500원\n-------------------------\n");
+				printf("품목명을 입력하세요 : ");
+				scanf(" %s", &prd[idx].name);
+				printf("수량을 입력하세요 : ");
+				scanf(" %d", &prd[idx].qty);
+				printf("사이즈를 입력하세요(M) : ");
+				scanf(" %s", &prd[idx].size);
+				sum += seoson(prd[idx].qty, prd[idx].size);
+				idx++;
+			}
+			else if (menu == 2) {
+				printf("\n---------[JUICE]---------\n");
+				printf("1) 바나나\n2) 키위\n3) 파인애플\n4) 초코바나나\n5) 사과\n\n");
+				printf("\nM : 1,500원 / XL : 2,800원\n-------------------------\n");
+				printf("품목명을 입력하세요 : ");
+				scanf(" %s", &prd[idx].name);
+				printf("수량을 입력하세요 : ");
+				scanf(" %d", &prd[idx].qty);
+				printf("사이즈를 입력하세요(M / XL) : ");
+				scanf(" %s", &prd[idx].size);
+				sum += juice(prd[idx].qty, prd[idx].size);
+				idx++;
+			}
+			else if (menu == 3) {
+				printf("\n--------[JUICY COFFEE]--------\n");
+				printf("1) 바닐라라떼\n2) 카페모카\n3) 카라멜마끼야또\n4) 연유커피\n\n");
+				printf("\nM : 2,000원 / XL : 3,500원\n------------------------------\n");
+				printf("품목명을 입력하세요 : ");
+				scanf(" %s", &prd[idx].name);
+				printf("수량을 입력하세요 : ");
+				scanf(" %d", &prd[idx].qty);
+				printf("사이즈를 입력하세요(M / XL) : ");
+				scanf(" %s", &prd[idx].size);
+				sum += coffee(prd[idx].qty, prd[idx].size);
+				idx++;
+			}
+			else if (menu == 4) {
+				printf("\n--------[YOGULT]--------\n");
+				printf("1) 바나나요거트\n2) 딸기요거트\n3) 블루베리요거트\n\n");
+				printf("\nM : 2,000원 / XL : 3,800원\n-------------------------\n");
+				printf("품목명을 입력하세요 : ");
+				scanf(" %s", &prd[idx].name);
+				printf("수량을 입력하세요 : ");
+				scanf(" %d", &prd[idx].qty);
+				printf("사이즈를 입력하세요(M / XL) : ");
+				scanf(" %s", &prd[idx].size);
+				total += yogult(prd[idx].qty, prd[idx].size);
+				idx++;
+			}
+			else if (menu == 5) {
+				printf("\n--------[ADE]--------\n");
+				printf("1) 레몬\n2) 오렌지\n3) 자몽\n4) 청포도\n\n");
+				printf("\nM : 3,800원\n-------------------------\n");
+				printf("품목명을 입력하세요 : ");
+				scanf(" %s", &prd[idx].name);
+				printf("수량을 입력하세요 : ");
+				scanf(" %d", &prd[idx].qty);
+				printf("사이즈를 입력하세요(M) : ");
+				scanf(" %s", &prd[idx].size);
+				sum += ade(prd[idx].qty, prd[idx].size);
+				idx++;
+			}
+			else {
+				printf("\n잘못 선택하셨습니다. 다시 선택해주세요.\n");
+			}
+			printf("\n추가로 주문하시겠습니까?(y/n): ");
+			scanf(" %c", &input);
+		} while (input == 'y');
+		printf("주문 리스트를 확인해 주세요.");
+		printf("\n\n===== 주문 리스트 =====\n");
+		printf("품목  수량  사이즈\n");
+		for (int i = 0; i < idx; i++) {
+			printf("%s  %d  %s\n", prd[i].name, prd[i].qty, prd[i].size);
+		}
+		printf("\n\n총 금액 : %d원\n=======================\n", sum); //총금액에 추가 주문 금액도 포함되어야 하는데 그 방법을 잘 모르겠어서 추가를 하지 못했습니다ㅠㅠ!!
+		printf("주문하고자 하는 메뉴가 맞습니까?\n 예, 아니오: ");
+		scanf(" %c\n", &answer);
+	} while (answer == '예'); //'아니오'라고 대답했을 때 첫 메뉴 판으로 넘어가야 하는데 넘어가지 않습니다ㅠㅠ
+	printf("\n멤버십 할인을 하시겠습니까? {VIP등급 10% 할인 (월 1회만 가능)}\n");
+	printf(" 예, 아니오: ");
+	scanf(" %c\n", &choose);
+	puts("");
+	if (choose == '예') {
+		printf("10% 할인됐습니다. 할인된 가격인 %d원으로 결제됩니다.\n", sum * (0.9));
+		} // '예'라고 대답했을 때 10%할인된다는 말이 나와야하는데 밑에 있는 '기존 가격 ~'문장이 나옵니다ㅠㅠ뭐가 문제일까요??ㅠㅠ
+	else {
+		printf("기존 가격 %d 원으로 결제됐습니다.\n\n", sum);
+		}
+	printf("=====================================\n");
+	printf("               영수증                \n");
+	printf("=====================================\n");
+	printf("[사업장] 주씨 단국대점\n");
+	printf("[사업자] 106-82-02786\n");
+	printf("[주소] 경기 용인시 수지구 죽전로 152-1\n");
+	printf("[전화번호] 031-262-2770\n");
+	printf("[매출일] 2022-07-13  12:28:42\n");
+	printf("[주문번호] 0050\n");
+	printf("-------------------------------------\n");
+	printf("상품명           수량           금액\n");
+	for (int i = 0; i < idx; i++) {
+		printf("%s %10d %10s\n", prd[i].name, prd[i].qty, prd[i].size);
+		}
+	printf("-------------------------------------\n");
+	printf("합계금액                    %d원\n", sum);
+	printf("=====================================\n");
+	printf("    ***신용승인정보(고객용)[1]***   \n");
+	return 0;
+}
+int seoson(int qty, char size[]) {
+	if (strcmp(size, "M") == 0) {
+		return 3500 * qty;
+	}
+}
+int juice(int qty, char size[]) {
+	if (strcmp(size, "M") == 0) {
+		return 1500 * qty;
+	}
+	if (strcmp(size, "XL") == 0) {
+		return 2800 * qty;
+	}
+}
+int coffee(int qty, char size[]) {
+	if (strcmp(size, "M") == 0) {
+		return 2000 * qty;
+	}
+	if (strcmp(size, "XL") == 0) {
+		return 3500 * qty;
+	}
+}
+int yogult(int qty, char size[]) {
+	if (strcmp(size, "M") == 0) {
+		return 2000 * qty;
+	}
+	if (strcmp(size, "XL") == 0) {
+		return 3800 * qty;
+	}
+}
+int ade(int qty, char size[]) {
+	if (strcmp(size, "M") == 0) {
+		return 3800 * qty;
+	}
+}
