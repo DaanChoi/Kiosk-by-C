@@ -29,7 +29,7 @@ int main(void) {
 
 	while (1) {
 		printf("\n*******JUICY KIOSK*******\n");
-		while(1) {
+		while (1) {
 			printf("\n========= MENU =========\n");
 			printf("1. SEOSON\n2. JUICE\n3. COFFEE\n4. YOGULT\n5. ADE\n=========================\n");
 			printf("보고싶은 메뉴를 선택하세요 : ");
@@ -120,7 +120,7 @@ int main(void) {
 		for (int i = 0; i < idx; i++) {
 			printf("%-10s  %4d  %4s\n", prd[i].name, prd[i].qty, prd[i].size);
 		}
-		printf("\n\n총 금액 : %d원\n", sum); 
+		printf("\n\n총 금액 : %d원\n", sum);
 		printf("=========================\n");
 
 		printf("결제하시겠습니까?(y/n) : ");
@@ -138,7 +138,7 @@ int main(void) {
 	if (discnt == 'y') {
 		sum *= 0.9;
 		printf("10%% 할인됐습니다. 할인된 가격 %d원으로 결제됩니다.\n", sum);
-	} 
+	}
 	else {
 		printf("기존 가격 %d원으로 결제됩니다.\n\n", sum);
 	}
@@ -185,7 +185,7 @@ void receipt(int idx, product prd[], int sum) {
 	FILE* fp = fopen("receipt.txt", "w");
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
-	
+
 	//콘솔창에 출력(표준 출력(화면))
 	printf("=====================================\n");
 	printf("               영수증                \n");
@@ -194,12 +194,12 @@ void receipt(int idx, product prd[], int sum) {
 	printf("[사업자] 106-82-02786\n");
 	printf("[주소] 경기 용인시 수지구 죽전로 152-1\n");
 	printf("[전화번호] 031-262-2770\n");
-	printf("[매출일] %d-%d-%d  %d:%d:%d\n", tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+	printf("[매출일] %d-%d-%d  %d:%d:%d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 	printf("[주문번호] 0050\n");
 	printf("-------------------------------------\n");
 	printf("상품명                  수량    금액\n");
 	for (int i = 0; i < idx; i++) {
-		printf("(%s)%-16s %7d %7d\n", prd[i].size, prd[i].name, prd[i].qty, prd[i].price);
+		printf("(%-2s)%-16s %7d %7d\n", prd[i].size, prd[i].name, prd[i].qty, prd[i].price);
 	}
 	printf("-------------------------------------\n");
 	printf("합계금액                    %d원\n", sum);
@@ -208,7 +208,6 @@ void receipt(int idx, product prd[], int sum) {
 
 
 	//파일에 출력(쓰기)
-
 	fputs("=====================================\n", fp);
 	fputs("               영수증                \n", fp);
 	fputs("=====================================\n", fp);
@@ -216,17 +215,18 @@ void receipt(int idx, product prd[], int sum) {
 	fputs("[사업자] 106-82-02786\n", fp);
 	fputs("[주소] 경기 용인시 수지구 죽전로 152-1\n", fp);
 	fputs("[전화번호] 031-262-2770\n", fp);
-	fprintf(fp, "%s %d%c%d%c%d  %d%c%d%c%d\n", "[매출일]", tm.tm_year + 1900, '-', tm.tm_mon + 1, '-', tm.tm_mday, tm.tm_hour, ':', tm.tm_min, ':', tm.tm_sec);
+	fprintf(fp, "%s %d%c%d%c%d  %d%c%d%c%d\n", "[매출일]", tm.tm_year + 1900,
+		'-', tm.tm_mon + 1, '-', tm.tm_mday, tm.tm_hour, ':', tm.tm_min, ':', tm.tm_sec);
 	fputs("[주문번호] 0050\n", fp);
 	fputs("-------------------------------------\n", fp);
 	fputs("상품명              수량    금액\n", fp);
 	for (int i = 0; i < idx; i++) {
-		fprintf(fp, "(%s)%-16s %7d %7d\n", prd[i].size, prd[i].name, prd[i].qty, prd[i].price);
+		fprintf(fp, "(%-2s)%-16s %7d %7d\n", prd[i].size, prd[i].name, prd[i].qty, prd[i].price);
 	}
 	fputs("-------------------------------------\n", fp);
 	fprintf(fp, "%s                    %d%s\n", "합계금액", sum, "원");
 	fputs("=====================================\n", fp);
 	fputs("    ***신용승인정보(고객용)[1]***   \n", fp);
-	
+
 	fclose(fp);
 }
